@@ -405,6 +405,7 @@
             if (!audio) {
                 audio = new Audio("https://cdn.jsdelivr.net/gh/sl2eper/wedding-assets@1f48e385e0b07130063b108e8110b06c10d0e506/wedding.mp3"); 
                 audio.loop = true;
+                audio.volume = 0.1;
             }
             
             audio.play().then(() => {
@@ -896,7 +897,14 @@
                     showMessageBox(t.msg_copy_fail, 'error');
                 }
             };
+            window.changeVolume = (value) => {
+    if (audio) {
+        audio.volume = value;
+    }
+};
+            
         });
+        
     </script>
 </head>
 <body class="antialiased min-h-screen">
@@ -907,6 +915,9 @@
         <button id="music-toggle-btn" onclick="toggleMusic()" class="music-btn bg-white/80 text-gray-800 text-xl p-2 rounded-full shadow-lg transition duration-150 hover:bg-white border border-gray-200 w-10 h-10 flex items-center justify-center paused">
             💿
         </button>
+        <input id="volume-slider" type="range" min="0" max="1" step="0.01"
+       class="w-20"
+       onchange="changeVolume(this.value)" />
         <!-- 언어 버튼 -->
         <button id="lang-button" onclick="switchLanguage()" class="bg-yellow-500 text-white text-xs font-semibold py-2 px-3 rounded-full shadow-lg transition duration-150 hover:bg-yellow-600 h-10">
             中文
@@ -1186,6 +1197,7 @@
 </body>
 
 </html>
+
 
 
 
