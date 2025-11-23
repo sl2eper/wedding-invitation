@@ -128,123 +128,7 @@
             height: 20px;
             -webkit-animation: spin 1s linear infinite; /* Safari */
             animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* 귀여운 버튼 폰트 스타일 */
-        .cute-font {
-            font-family: 'Nanum Pen Script', cursive;
-            font-size: 1.5rem; /* 폰트 특성상 크기를 좀 더 키움 */
-            letter-spacing: 1px;
-        }
-
-        /* 플로팅 이모티콘 애니메이션 */
-        .floating-emoji {
-            position: fixed;
-            pointer-events: none;
-            animation: floatUp 2s ease-out forwards;
-            font-size: 2rem;
-            z-index: 9999;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.5); opacity: 1; }
-            50% { transform: translateY(-100px) scale(1.2); opacity: 0.8; }
-            100% { transform: translateY(-200px) scale(1); opacity: 0; }
-        }
-        
-        /* 포춘 쿠키 애니메이션 */
-        .shake-slow {
-            animation: shake-slow 2s infinite ease-in-out;
-        }
-        @keyframes shake-slow {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-5deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        /* 축하 카운트 애니메이션 */
-        .count-bump {
-            animation: bump 0.3s ease-out;
-        }
-        @keyframes bump {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* 뮤직 플레이어 스타일 */
-        .music-btn {
-            animation: spin-slow 4s linear infinite;
-        }
-        .music-btn.paused {
-            animation-play-state: paused;
-            opacity: 0.6;
-        }
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-    </style>
-    <!-- Firebase SDK 로드 -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, setLogLevel, doc, setDoc, updateDoc, increment, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Firestore 디버그 레벨 설정
-        setLogLevel('Debug');
-
-        // 전역 변수 설정 (Canvas 환경에서 제공됨)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = {
-  apiKey: "AIzaSyDVtkNVU5r68xcIvbjST909GjBJhUEDiPQ",
-  authDomain: "wedding-contact-c081b.firebaseapp.com",
-  projectId: "wedding-contact-c081b",
-  storageBucket: "wedding-contact-c081b.firebasestorage.app",
-  messagingSenderId: "252395846038",
-  appId: "1:252395846038:web:0838c4c9a5ebd0aee885b7",
-  measurementId: "G-S6LLLTWL1M"
-};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-        const apiKey = "AIzaSyBSqS-YE-ejUoW1R1bhwDqxlrT_RVmm1CY"; // Gemini API Key (Environment provided)
-
-        let db, auth;
-        let userId = null;
-        let isAuthReady = false;
-
-        // Gemini API 호출 함수
-        async function callGemini(prompt) {
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
-                });
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-            } catch (error) {
-                console.error("Gemini API Error:", error);
-                return null;
-            }
-        }
-
-        // 다국어 번역 데이터
-        const translations = {
-            ko: {
-                title: "저희 결혼합니다.",
-                splash_text: `나...<br><span class="splash-highlight">결혼</span>하게 됐어..<br><br><span class="splash-sub">그렇게 됐다..</span>`,
-                splash_hint: "화면을 클릭하면 청첩장이 열립니다 💌",
+   치하면 청첩장이 열립니다 💌",
                 main_title: "저희 결혼합니다.",
                 intro_text: `서로를 향한 믿음 아래<br>소중한 가정을 꾸리려 합니다.<br>작은 기쁨이 큰 행복이 되도록<br>존중하고 배려하며 살겠습니다.<br>따뜻한 격려로 축복해주시면 감사하겠습니다.<br><br><span class="font-bold text-gray-500 text-sm">저를 짝사랑하셨던 분들께는<br>미안한 마음뿐입니다. 🙏</span>`,
                 date_text: "2025년 12월 20일 (토)",
@@ -260,16 +144,16 @@
                 directions_car: "• 주차: 신도림 테크노마트 지하주차장 이용 (B3~B7)",
                 directions_link: "자세한 내용은 지도 링크를 클릭해주세요. 👆",
                 gift_title: "축하의 마음 전달하기",
-                account_groom: "🤵 신랑 계좌번호",
-                account_bride: "👰 신부 계좌번호",
-                crypto_wallet: "₿ 신랑 암호화폐 지갑",
+                account_groom: "🤵 태용이 계좌번호",
+                account_bride: "👰 효경이 계좌번호",
+                crypto_wallet: "₿ 태용이 암호화폐 지갑",
                 copy_button: "복사",
                 guestbook_title: "방명록 남기기",
                 guestbook_loading: "방명록 로딩 중...",
                 guestbook_placeholder_name: "이름 (예: 친구 김인직)",
                 guestbook_placeholder_message: "인직만숙 결혼할 줄 알았다 축하한다! 🎉",
                 guestbook_submit: "메시지 등록",
-                lotto_title: "신랑이 드리고 책임은 안지는 인생역전 번호 ✨",
+                lotto_title: "신랑이 주고 책임은 안지는 인생역전 번호 ✨",
                 lotto_note: "페이지를 새로고침(F5)하거나 다시 방문하면 행운 번호가 바뀝니다. 🍀",
                 outfit_title: "오늘의 하객룩 추천 (AI) 👗",
                 outfit_input_placeholder: "스타일 입력 (예: 봄, 호텔, 시크)",
@@ -1186,6 +1070,7 @@
 </body>
 
 </html>
+
 
 
 
