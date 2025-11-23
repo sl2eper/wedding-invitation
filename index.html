@@ -942,6 +942,7 @@
         <!-- 클릭 힌트 -->
         <div id="splash-hint" class="click-hint"></div>
     </div>
+    
 
     <!-- 2. 청첩장 본문 컨테이너 -->
     <div id="main-content" class="max-w-md mx-auto bg-white shadow-xl min-h-full" style="opacity: 0;">
@@ -957,13 +958,22 @@
                      style="max-height: 550px;">
             </div>
 
+            <!-- 결혼식 카운트다운 -->
+            <div class="w-full text-center my-6">
+                <div class="text-sm text-gray-500 mb-1">두 사람 품절까지 남은시간!</div>
+                <div id="countdown-timer" class="text-3xl font-bold text-red-500 tracking-widest">
+                    00:00:00:00
+                </div>
+            </div>
+
             <!-- 메인 문구 -->
             <h1 data-i18n="main_title" class="text-3xl font-serif font-bold highlight-text mb-2">우리 결혼합니다!</h1>
             <p data-i18n="intro_text" class="text-md leading-relaxed mb-8 text-gray-600">
-                어쩌구저쩌구해서 평생을 함께할 인연을 만났습니다.<br>
+                바쁘게 살아가다 평생을 함께할 인연을 만났습니다.<br>
                 서로 아끼고 사랑하며 아름다운 가정을 이루겠습니다.<br>
                 따뜻한 마음으로 축복해 주시면 감사하겠습니다.
             </p>
+
 
             <!-- 시간 및 장소 정보 -->
             <div class="space-y-4 mb-10 border-t border-b border-gray-200 py-6">
@@ -1193,9 +1203,40 @@
             
         </main>
     </div>
-</body>
 
+    <!-- 결혼식 카운트다운 스크립트 -->
+    <script>
+        // 🎉 카운트다운 목표 날짜 (2025년 12월 20일 오후 15:00)
+        const weddingDate = new Date("2025-12-20T15:00:00+09:00");
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById("countdown-timer").textContent = "00:00:00:00";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / (1000 * 60)) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("countdown-timer").textContent =
+                `${String(days).padStart(2, '0')}:` +
+                `${String(hours).padStart(2, '0')}:` +
+                `${String(mins).padStart(2, '0')}:` +
+                `${String(secs).padStart(2, '0')}`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
 </html>
+
 
 
 
